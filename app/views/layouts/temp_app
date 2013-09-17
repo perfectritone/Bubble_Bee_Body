@@ -1,0 +1,25 @@
+!!!
+%html
+  %head
+    %title
+      = yield(:title) || "Bubble Bee Body"
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+    = yield(:head)
+
+  %body
+    #container
+      = render 'layouts/header'
+
+      = render 'layouts/side_bar'
+
+      - flash.each do |name, msg|
+        = content_tag :div, msg, :id => "flash_#{name}"
+
+      #content
+        #inner_box
+          = yield
+
+      = render 'layouts/footer'
+

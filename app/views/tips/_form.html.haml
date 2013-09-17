@@ -1,0 +1,16 @@
+= form_for @tip do |f|
+  - if @tip.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@tip.errors.count, "error")} prohibited this tip from being saved:"
+      %ul
+        - @tip.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :content
+    = f.text_field :content
+  .actions
+    = f.submit 'Save'

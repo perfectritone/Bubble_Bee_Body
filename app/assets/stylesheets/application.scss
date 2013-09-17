@@ -9,5 +9,33 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require foundation_and_overrides
  *= require_tree .
  */
+
+ @import "compass"
+
+html {
+  background-color: rgb(252,248,209); // Old browsers
+  @include filter-gradient(#fcf8d1, #fcf8d1, horizontal); // IE6-9
+  @include background-image(linear-gradient(left, rgba(252,248,209,1) 0%,rgba(244,223,127,1) 50%,rgba(252,248,209,1) 100%));
+}
+
+#top-menu {
+    border: {
+      bottom: {
+        style: solid;
+        width: 1px;
+        color: black;
+      }
+    }
+}
+#content {
+  position:absolute;
+  left:0;
+  right:0;
+}
+
+#side-bar {
+  border-left: thin solid #2B2A2B;
+}
