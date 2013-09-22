@@ -1,0 +1,21 @@
+%h1 Listing oils
+
+%table
+  %tr
+    %th Title
+    %th Content
+    %th
+    %th
+    %th
+
+  - @oils.each do |oil|
+    %tr
+      %td= oil.name
+      %td= oil.description
+      %td= link_to 'Show', oil
+      %td= link_to 'Edit', edit_oil_path(oil)
+      %td= link_to 'Destroy', oil, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Oil', new_oil_path

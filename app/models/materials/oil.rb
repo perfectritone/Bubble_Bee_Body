@@ -1,0 +1,3 @@
+class Oil < Material
+
+end

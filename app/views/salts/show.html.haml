@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @salt.name
+%p
+  %b Content:
+  = @salt.description
+
+= link_to 'Edit', edit_salt_path(@salt)
+\|
+= link_to 'Back', salts_path

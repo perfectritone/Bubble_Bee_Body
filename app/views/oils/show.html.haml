@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @oil.name
+%p
+  %b Content:
+  = @oil.description
+
+= link_to 'Edit', edit_oil_path(@oil)
+\|
+= link_to 'Back', oils_path

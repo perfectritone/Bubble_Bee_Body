@@ -1,0 +1,21 @@
+%h1 Listing salts
+
+%table
+  %tr
+    %th Title
+    %th Content
+    %th
+    %th
+    %th
+
+  - @salts.each do |salt|
+    %tr
+      %td= salt.name
+      %td= salt.description
+      %td= link_to 'Show', salt
+      %td= link_to 'Edit', edit_salt_path(salt)
+      %td= link_to 'Destroy', salt, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Salt', new_salt_path

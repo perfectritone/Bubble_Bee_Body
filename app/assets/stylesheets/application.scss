@@ -13,12 +13,15 @@
  *= require_tree .
  */
 
- @import "compass"
+@import url(https://fonts.googleapis.com/css?family=Lato:300italic,700italic,300,700);
 
 html {
-  background-color: rgb(252,248,209); // Old browsers
-  @include filter-gradient(#fcf8d1, #fcf8d1, horizontal); // IE6-9
-  @include background-image(linear-gradient(left, rgba(252,248,209,1) 0%,rgba(244,223,127,1) 50%,rgba(252,248,209,1) 100%));
+  background: -moz-linear-gradient(left, rgba(249,244,199,1) 0%, rgba(234,231,147,1) 52%, rgba(252,245,186,1) 100%);
+}
+
+#main {
+  font: 300 32px/1.5 Lato, Helvetica, Arial, sans-serif;
+  
 }
 
 #top-menu {

@@ -1,6 +1,7 @@
 GIT
-  remote: git://github.com/zurb/foundation.git
-  revision: 1967f1d2592a2f22565a779c403e378605f93ed7
+  remote: git://github.com/perfectritone/foundation.git
+  revision: aab56cc0d4f849a409eb50bd2a6b029c0f5597f2
+  branch: df-gradient-on-topbar-section
   specs:
     zurb-foundation (4.3.1)
       sass (>= 3.2.0)
