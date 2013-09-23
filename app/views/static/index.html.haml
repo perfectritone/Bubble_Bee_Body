@@ -1,4 +1,12 @@
 -content_for :title do 
   Bubble Bee Body
 
-Bath Salts. Not the drug though, don't worry.
+#general
+  Bath Salts. Not the drug though, don't worry.
+
+#material-tour
+  -@material_subclass_featured.each_key do |material_name|
+    =material_name
+
+-@material_subclass_featured.each do |name, page|
+  =render partial: 'shared/material', locals: { page: page, name: name }
