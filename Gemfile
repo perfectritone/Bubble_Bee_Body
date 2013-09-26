@@ -48,3 +48,5 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem 'seed_dump', '1.0.0'

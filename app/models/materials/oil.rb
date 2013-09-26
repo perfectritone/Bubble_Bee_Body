@@ -1,3 +1,3 @@
-class Oil < Material
+class Oil < ActiveRecord::Base
 
 end

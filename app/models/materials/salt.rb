@@ -1,3 +1,3 @@
-class Salt < Material
+class Salt < ActiveRecord::Base
 
 end
