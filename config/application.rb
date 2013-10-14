@@ -26,5 +26,9 @@ module Bbb
     # config.i18n.default_locale = :de
 
     config.autoload_paths += Dir[Rails.root.join('app', 'models', '**/')]
+
+    config.generators do |g|
+      g.test_framework :mini_test, :spec => true
+    end
   end
 end

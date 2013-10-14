@@ -1,4 +1,6 @@
 class OilsController < ApplicationController
+  include Material
+
   before_action :set_oil, only: [:show, :edit, :update, :destroy]
 
   # GET /oils
@@ -9,8 +11,8 @@ class OilsController < ApplicationController
 
   # GET /oils/1
   # GET /oils/1.json
-  def show
-  end
+  # def show
+  # end
 
   # GET /oils/new
   def new

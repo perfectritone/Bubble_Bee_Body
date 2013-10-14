@@ -50,3 +50,13 @@ end
 # gem 'debugger', group: [:development, :test]
 
 gem 'seed_dump', '1.0.0'
+
+# Testing gems
+gem 'minitest-rails'
+gem 'minitest-rails-capybara'
+gem "factory_girl_rails", "~> 4.2.1"
+gem "guard", "~> 2.0.5"
+gem "guard-minitest", "~> 2.0.0"
+
+# Facebook Graph API
+gem "koala", "~> 1.7.0rc1"
