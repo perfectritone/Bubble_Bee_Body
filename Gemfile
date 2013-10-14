@@ -60,3 +60,6 @@ gem "guard-minitest", "~> 2.0.0"
 
 # Facebook Graph API
 gem "koala", "~> 1.7.0rc1"
+
+# Secret keys
+gem 'dotenv-rails'

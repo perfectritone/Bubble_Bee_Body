@@ -16,4 +16,4 @@
 /tmp
 
 # Ignore secret keys
-/config/initializers/secret_*.rb
+.env*
