@@ -9,7 +9,9 @@ Bbb::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'static#index'
 
-  get 'callback' => 'tips#callback'
+  get 'auth/:provider/callback', to: 'oauth_sessions#create'
+  get 'auth/failure', to: redirect('/')
+  get 'signout', to: 'oauth_sessions#destroy', as: 'signout'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

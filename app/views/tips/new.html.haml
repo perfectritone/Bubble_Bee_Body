@@ -1,5 +1,15 @@
 %h1 New tip
 
-= render 'form'
+#user_nav
+  -if current_oauth_user
+    Signed in as 
+    %strong 
+      =current_oauth_user.name
+    !
+    =link_to "Sign out", signout_path, id: "sign_out"
+  -else
+    = link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in"
 
-= link_to 'Back', tips_path
+=render 'form'
+
+=link_to 'Back', tips_path

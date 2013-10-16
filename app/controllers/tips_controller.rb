@@ -30,7 +30,7 @@ class TipsController < ApplicationController
 
     respond_to do |format|
       if @tip.save
-        format.html { redirect_to get_fb_redirect, notice: 'Tip was successfully created.' }
+        format.html { redirect_to @tip, notice: 'Tip was successfully created.' }
         format.json { render action: 'show', status: :created, location: @tip }
       else
         format.html { render action: 'new' }
@@ -100,7 +100,7 @@ class TipsController < ApplicationController
 
     # Retrieve the redirect url for Facebook to in turn retrieve the code for the user.
     def get_fb_redirect
-      app_id = Bbb::Application.config.app_id
+      app_id = ENV['FB_APP_ID']
       scope = ['manage_pages', 'publish_stream']
       return get_token_url(app_id, "http://localhost:3000/callback", scope)
     end

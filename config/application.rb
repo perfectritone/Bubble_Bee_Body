@@ -30,7 +30,5 @@ module Bbb
     config.generators do |g|
       g.test_framework :mini_test, :spec => true
     end
-
-    config.app_id = 461087440666581
   end
 end
