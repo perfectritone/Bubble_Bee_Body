@@ -30,6 +30,14 @@ class TipsController < ApplicationController
 
     respond_to do |format|
       if @tip.save
+        oauth_token = OauthUser.find(session[:oauth_user_id]).oauth_token
+
+        graph = Koala::Facebook::API.new(oauth_token)
+
+        page_id = get_page_id(graph, "Bubble Bee Body")
+
+        post_response = graph.put_connections(page_id, 'feed', message: self.to_s)
+
         format.html { redirect_to @tip, notice: 'Tip was successfully created.' }
         format.json { render action: 'show', status: :created, location: @tip }
       else
@@ -105,7 +113,7 @@ class TipsController < ApplicationController
       return get_token_url(app_id, "http://localhost:3000/callback", scope)
     end
 
-    def page_id(graph, page_name)
+    def get_page_id(graph, page_name)
       accounts = graph.get_connections("me", "accounts")
 
       # Find the corresponding Page to be posted on and return its id.

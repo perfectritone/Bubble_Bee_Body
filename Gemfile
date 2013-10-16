@@ -59,7 +59,7 @@ gem "guard", "~> 2.0.5"
 gem "guard-minitest", "~> 2.0.0"
 
 # Authentication for Facebook OmniAuth
-gem 'omniauth-facebook'
+gem 'omniauth-facebook', '1.4.0'
 
 # Facebook Graph API
 gem "koala", "~> 1.7.0rc1"

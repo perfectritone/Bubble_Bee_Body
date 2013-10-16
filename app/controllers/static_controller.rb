@@ -2,7 +2,8 @@ class StaticController < ApplicationController
   def index
     @title = "BBB"
 
-    material_subclasses = Material.descendants
+    # material_subclasses = Material.descendants
+    material_subclasses = [Kernel.const_get(:Salt), Kernel.const_get(:Oil)]
     @material_subclass_featured = {}
     material_subclasses.each do |sc|
       @material_subclass_featured[sc.name] = sc.where(featured: true).limit(4).shuffle
