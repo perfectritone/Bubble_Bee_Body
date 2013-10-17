@@ -7,6 +7,6 @@ class OauthSessionsController < ApplicationController
 
   def destroy
     session[:oauth_user_id] = nil
-    redirect_to root_url
+    redirect_to new_tip_path
   end
 end

@@ -1,6 +1,11 @@
 TODO
 
 authentication
+  When user is logged in already, there are two bugs
+    1) They will not be asked for permissions (Only applicable if permissions have changed, so first time and on addition of permissions).
+    2) If the session token has expired, they cannot post. Need to check expiration, if expired get new access token.
+  Both of these bugs can be avoided by logging out, then logging back in. When they log out, they are sent to the homepage due to the route. The route should be changed to take into account where they are coming from. Not critical at this point, but should be fixed soon.
+
 
 Product
   name

@@ -6,7 +6,9 @@ class OauthUser < ActiveRecord::Base
       user.uid = auth.uid
       user.name = auth.info.name
       user.oauth_token = auth.credentials.token
-      user.oauth_expires_at = Time.at(auth.credentials.expires_at)
+      unless auth.credentials.expires_at.nil?
+        user.oauth_expires_at = Time.at(auth.credentials.expires_at)
+      end
       user.save!
     end
   end

@@ -12,7 +12,7 @@ class StaticController < ApplicationController
 end
 
 =begin
-  
+
   1: get a list of subclasses
   2: each of those subclasses needs to bring with itself its 
     Class name (for link)

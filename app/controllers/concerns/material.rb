@@ -3,7 +3,7 @@ module Material
 
   def show
     # @oil = Oil.find(2)
-    # @material = 
+    # @material =
   end
 
 end

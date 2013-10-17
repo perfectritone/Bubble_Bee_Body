@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131016143518) do
+ActiveRecord::Schema.define(version: 20131017035615) do
 
   create_table "materials", force: true do |t|
     t.string   "name"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 20131016143518) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "fb_id",      limit: 24
+    t.string   "fb_id",      limit: 24
   end
 
 end

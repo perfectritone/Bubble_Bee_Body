@@ -66,3 +66,6 @@ gem "koala", "~> 1.7.0rc1"
 
 # Secret keys
 gem 'dotenv-rails'
+
+# `rails c` loads pry instead of the default irb
+gem "pry-rails", "~> 0.3.2"

@@ -3,6 +3,14 @@ class Tip < ActiveRecord::Base
 
   # after_save :post_to_facebook
 
+  def to_s
+    <<-STRING
+#{self.title}
+
+#{self.content}
+    STRING
+  end
+
   private
     # def post_to_facebook
     #   app_id = Bbb::Application.config.app_id
@@ -35,8 +43,4 @@ class Tip < ActiveRecord::Base
     #     flash.now[:error] = 'Could not post to Facebook.'
     #   end
     # end
-
-    def to_s
-      "#{self.title}\r\n\r\n#{self.content}"
-    end
 end

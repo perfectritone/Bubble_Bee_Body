@@ -30,13 +30,20 @@ class TipsController < ApplicationController
 
     respond_to do |format|
       if @tip.save
-        oauth_token = OauthUser.find(session[:oauth_user_id]).oauth_token
+        graph = prepare_facebook_graph
+        set_page_id(graph, ENV['PAGE_NAME']) unless session[:page_id]
 
-        graph = Koala::Facebook::API.new(oauth_token)
+        # Post the message to the Page's wall
+        post_response = graph.put_connections(session[:page_id], 'feed', message: @tip.to_s)
 
-        page_id = get_page_id(graph, "Bubble Bee Body")
-
-        post_response = graph.put_connections(page_id, 'feed', message: self.to_s)
+        # If the post was successful, the post response will have the post's
+        # FB object id.
+        if post_response['id']
+          @tip.fb_id = post_response['id']
+          @tip.save
+        else
+          flash.now(error: "Could not post tip to Facebook.")
+        end
 
         format.html { redirect_to @tip, notice: 'Tip was successfully created.' }
         format.json { render action: 'show', status: :created, location: @tip }
@@ -52,6 +59,11 @@ class TipsController < ApplicationController
   def update
     respond_to do |format|
       if @tip.update(tip_params)
+        if @tip.fb_id
+          graph = prepare_facebook_graph
+          # put_response = graph.
+        end
+
         format.html { redirect_to @tip, notice: 'Tip was successfully updated.' }
         format.json { head :no_content }
       else
@@ -64,35 +76,24 @@ class TipsController < ApplicationController
   # DELETE /tips/1
   # DELETE /tips/1.json
   def destroy
+    fb_id = @tip.fb_id
+    if fb_id
+      graph = prepare_facebook_graph
+      # Send delete request for the post. If it could not be deleted,
+      # the request will return false and will send an error.
+      unless graph.delete_object(fb_id)
+        set_page_id(graph, ENV['PAGE_NAME'])
+        post_url = get_post_url(graph, session[:page_id])
+        flash.now(error: "Post could not be deleted on Facebook. "\
+          "If you would like to delete it manually go to "\
+          "the following address: #{post_url}")
+      end
+    end
     @tip.destroy
     respond_to do |format|
       format.html { redirect_to tips_url }
       format.json { head :no_content }
     end
-  end
-
-  def callback
-    cookies[:access_token] = params[:access_token]
-    puts params.inspect
-
-
-
-  #   code = params[:code]
-  #   if code
-  #     @oauth = Koala::Facebook::OAuth.new(Bbb::Application.config.app_id, ENV['FB_APP_SECRET'], "http://localhost:3000/callback")
-  #     cookies[:access_token] = @oauth.get_access_token(code)
-
-    @graph = Koala::Facebook::API.new(cookies[:access_token])
-    print "IONESTSEKDT\n\n\n\n\n\n\nesinteiaskeistdeksatdekEISKTNE"
-    print cookies[:access_token]
-
-    redirect_to Tip.last, notice: cookies[:access_token]
-    # if page_id(@graph, "Bubble Bee Body")
-    #   print "SETNSESKDNSDKKSEI"
-    # else
-    #   flash.now[:error] = "The user does not have access to the Facebook Page. Please"\
-    #                       " login with a user with the correct permissions."
-    # end
   end
 
   private
@@ -106,30 +107,27 @@ class TipsController < ApplicationController
       params.require(:tip).permit(:title, :content)
     end
 
-    # Retrieve the redirect url for Facebook to in turn retrieve the code for the user.
-    def get_fb_redirect
-      app_id = ENV['FB_APP_ID']
-      scope = ['manage_pages', 'publish_stream']
-      return get_token_url(app_id, "http://localhost:3000/callback", scope)
-    end
-
-    def get_page_id(graph, page_name)
+    def set_page_id(graph, page_name)
       accounts = graph.get_connections("me", "accounts")
 
       # Find the corresponding Page to be posted on and return its id.
       accounts.each do |account| 
-        return account['id'] if account['name'] == page_name
+        return session[:page_id] = account['id'] if account['name'] == page_name
       end
 
       # If it cannot be found return nothing.
       return nil
     end
 
-      # if logged in, it will ask the user for permission to allow app access.
-      # user will say yes and be redirected with the code in the url
-      # this code will be saved as a cookie.
-      # Make sure the user has the BBB Page (the right user is logged in)
-      # if it's not the right user, send an error message telling the user to log out
-      # once they are logged out they will try this block again.
-      # Post to FB
+    # Creates the graph and sets the page id to be 
+    # persisted in the session.
+    def prepare_facebook_graph
+      oauth_token = OauthUser.find(session[:oauth_user_id]).oauth_token
+      graph = Koala::Facebook::API.new(oauth_token)
+    end
+
+    # Take in a page_id and a post_id and return the url of the post.
+    def get_post_url(page_id, post_id)
+      "https://www.facebook.com/#{page_id}/posts/#{post_id}"
+    end
 end
