@@ -27,4 +27,12 @@ describe Tip do
       @tip.wont_be :valid?
     end
   end
+
+  describe "should contain both the title and the content in the string representation." do
+    it do
+      tip_string = @tip.to_s
+      tip_string.must_be_instance_of String
+      tip_string.must_match /#{Regexp.quote(@tip.title)}\s+#{Regexp.quote(@tip.content)}/
+    end
+  end
 end
